@@ -17,12 +17,8 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - uses: actions/checkout@v2
-      - name: Install Ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: 3.0
-          bundler-cache: true 
+      - name: Setup Ruby, JRuby and TruffleRuby
+        uses: ruby/setup-ruby@v1.70.1
       - name: Install Bundler
         run: gem install bundler -v 2.2.7
       - name: Install Node
@@ -41,5 +37,3 @@ jobs:
           yarn --frozen-lockfile
       - name: Run unit tests
         run: bundle exec rspec
-      - name: Run integration tests
-        run: bundle exec cucumber
