@@ -1,5 +1,5 @@
 name: Tests
-on: [push, pull_request]
+on: [pull_request]
 jobs:
   test:
     runs-on: ubuntu-20.04
@@ -9,7 +9,7 @@ jobs:
         # The postgres container requires the postgres user to be setup with a password in order to start it due to security
         # reasons
         env:
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: kendrick
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
@@ -21,9 +21,9 @@ jobs:
       - name: Install Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.6.6
+          ruby-version: 3.0.0
       - name: Install Bundler
-        run: gem install bundler:2.1.4
+        run: gem install bundler
       - name: Install Node
         uses: actions/setup-node@v1
         with:
