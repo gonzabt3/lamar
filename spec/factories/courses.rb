@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :course do
-    comision_name { "MyString" }
-    user_id { 1 }
+    comision_name { "test-name" }
   end
 end
