@@ -3,20 +3,22 @@ require 'rails_helper'
 RSpec.describe Course, type: :model do
 
   describe '::add_professors' do
-    context 'when the user to add not is in student list' do
+    context 'when the user does not exist in the course' do
       let!(:course) { create(:course) }
       let!(:user){ create(:user) }
-      it 'creates the relation CourseProfessor' do
+      let!(:role){ create(:role, name: 'professor') }
+      it 'creates the relation CourseUsers' do
         expect{
-          course.add_professors([user])
-        }.to change { CourseProfessor.count}
+          course.add_user(user, role)
+        }.to change { CourseUsers.count}
       end
       it 'creates the correct relation' do
-        course.add_professors([user])
-        expect(CourseProfessor.first.user).to eq(user)
-        expect(CourseProfessor.first.course).to eq(course)
+        course.add_user(user, role)
+        expect(CourseUsers.first.user).to eq(user)
+        expect(CourseUsers.first.course).to eq(course)
       end
     end
+    # ----------------
     context 'when the user to add is in student list' do
       let!(:course) { create(:course) }
       let!(:user){ create(:user) }
