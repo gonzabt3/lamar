@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Course, type: :model do
 
-  describe '::add_professors' do
+  describe '::add_user' do
+    let!(:course) { create(:course) }
+    let!(:user){ create(:user) }
+    let!(:role){ create(:role, name: 'professor') }
     context 'when the user does not exist in the course' do
-      let!(:course) { create(:course) }
-      let!(:user){ create(:user) }
-      let!(:role){ create(:role, name: 'professor') }
       it 'creates the relation CourseUsers' do
         expect{
           course.add_user(user, role)
@@ -19,45 +19,14 @@ RSpec.describe Course, type: :model do
       end
     end
     # ----------------
-    context 'when the user to add is in student list' do
-      let!(:course) { create(:course) }
-      let!(:user){ create(:user) }
-      before do
-        CourseStudent.create(user: user, course: course)
+    context 'when the user exists in the course' do
+      before do 
+        create(:course_users, course_id: course.id, user_id: user.id, role_id: role.id) 
       end
-      it 'does not create the relation CourseProfessor' do
-        expect{
-          course.add_professors([user])
-        }.not_to change { CourseProfessor.count}
-      end
-    end
-  end
-
-  describe '::add_students' do
-    context 'when the user to add not is in professor list' do
-      let!(:course) { create(:course) }
-      let!(:user){ create(:user) }
-      it 'creates the relation CourseStudent' do
-        expect{
-          course.add_students([user])
-        }.to change { CourseStudent.count}
-      end
-      it 'creates the correct relation' do
-        course.add_students([user])
-        expect(CourseStudent.first.user).to eq(user)
-        expect(CourseStudent.first.course).to eq(course)
-      end
-    end
-    context 'when the user to add is in student list' do
-      let!(:course) { create(:course) }
-      let!(:user){ create(:user) }
-      before do
-        CourseProfessor.create(user: user, course: course)
-      end
-      it 'does not create the relation CourseProfessor' do
-        expect{
-          course.add_students([user])
-        }.not_to change { CourseStudent.count}
+      # ESTE TEST NO VA ACA
+      it 'not creates the resource' do
+        expect(course.add_user(user, role)).to_not be_valid
+        #expect {course.add_user(user, role)}.to  raise_error(ActiveRecord::RecordInvalid,'This user is already in this course.')
       end
     end
   end
