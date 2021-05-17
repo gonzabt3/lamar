@@ -18,16 +18,5 @@ RSpec.describe Course, type: :model do
         expect(CourseUsers.first.course).to eq(course)
       end
     end
-    # ----------------
-    context 'when the user exists in the course' do
-      before do 
-        create(:course_users, course_id: course.id, user_id: user.id, role_id: role.id) 
-      end
-      # ESTE TEST NO VA ACA
-      it 'not creates the resource' do
-        expect(course.add_user(user, role)).to_not be_valid
-        #expect {course.add_user(user, role)}.to  raise_error(ActiveRecord::RecordInvalid,'This user is already in this course.')
-      end
-    end
   end
 end
