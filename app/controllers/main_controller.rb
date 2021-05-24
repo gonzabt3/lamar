@@ -1,6 +1,5 @@
 class MainController < ApplicationController
   def index
-    byebug
     @posts = posts
   end
 

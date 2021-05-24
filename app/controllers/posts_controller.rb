@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   
   def create
-    Post.create(body: post_params[:body], user_id: 1)
+    Post.create(body: post_params[:body], user: current_user)
   end
 
   private
