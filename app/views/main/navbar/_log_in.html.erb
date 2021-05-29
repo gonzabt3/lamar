@@ -1,0 +1,5 @@
+<% unless user_signed_in? %>
+  <%= link_to "Log in", user_session_path, class:"button is-light" %>
+<% else %>
+  <%= link_to "Log out", user_session_path, class:"button is-light" %>
+<% end %>
