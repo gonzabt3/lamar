@@ -24,5 +24,13 @@ RSpec.describe "main/index", type: :view do
         expect(rendered).to match(/Sign up/)
       end
     end
+    it 'includes partials' do
+      render
+      expect(view).to render_template(partial: 'main/navbar/_navbar')
+      expect(view).to render_template(partial: 'main/_documentation_panel')
+      expect(view).to render_template(partial: 'main/_events_panel')
+      expect(view).to render_template(partial: 'main/_feed')
+      expect(view).to render_template(partial: 'main/_menu_panel')
+    end
   end
 end
