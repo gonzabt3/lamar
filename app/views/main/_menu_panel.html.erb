@@ -8,8 +8,19 @@
         General
       </p>
       <ul class="menu-list">
-        <li><a>Mi perfil</a></li>
+      <%= turbo_frame_tag 'post' %>
+
+      <div class="mt-8" data-controller="user-modal" data-user-modal-prevent-default-action-opening="false">
+        <%= render partial: 'users/form' %>
+        <li><%= link_to 'Mi perfil', edit_user_path(current_user), data: { action: "click->user-modal#open", 'turbo-frame': 'user' } %>
       </ul>
+      <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+      </div>
     </aside>
   </div>
 </nav>
+
+

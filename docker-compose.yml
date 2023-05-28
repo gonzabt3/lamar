@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    restart: always
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      DATABASE_USER_NAME: lamar
+      DATABASE_PASSWORD: kendrick
+      DATABASE_NAME: lamar
+    network_mode: "host"
+  web:
+    restart: always
+    build: .
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    network_mode: "host"

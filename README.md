@@ -1,24 +1,13 @@
-# README
+# notes
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+start sh in container
+    docker exec -it <container id> sh 
 
-Things you may want to cover:
+start docker compose
+    docker-compose up
 
-* Ruby version
+check ports listen
+    sudo lsof -i -P -n | grep 
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+kill process
+    sudo kill <port number>
